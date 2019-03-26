@@ -1,7 +1,7 @@
 import './style';
 import { clamp } from './functions/math';
 import { selectorToElement } from './functions/selectorToElement';
-import { throttle } from './functions/throttle';
+import { debounce } from './functions/debounce';
 
 interface Options {
 	$before?: HTMLElement | string;
@@ -50,7 +50,7 @@ export default class ComparisonSlider {
 		this.$el.addEventListener( 'touchstart', onTouchStart );
 		this.$el.addEventListener( 'contextmenu', onContextMenu );
 
-		const onWindowResize = throttle( () => {
+		const onWindowResize = debounce( () => {
 
 			this.update();
 			this.draw();

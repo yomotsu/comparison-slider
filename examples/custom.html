@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>=^.^=</title>
+<style>
+.ComparisonSlider {
+  width: 600px;
+  height: 400px;
+}
+.ComparisonSlider__Handle {
+  border-radius: 0;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background-image: url( "./arrow.svg" );
+}
+.ComparisonSlider__Handle::before,
+.ComparisonSlider__Handle::after {
+  background-color: #7aff00;
+}
+.ComparisonSlider__Handle::before {margin-bottom: 4px;}
+.ComparisonSlider__Handle::after {margin-top: 4px;}
+</style>
+</head>
+<body>
+<p><a href="https://github.com/yomotsu/comparison-slider">GitHub repo</a></p>
+
+
+<div class="ComparisonSlider">
+  <div
+    class="ComparisonSlider__Before"
+    style="background-image: url(./before.jpg)"
+  ></div>
+  <div
+    class="ComparisonSlider__After"
+    style="background-image: url(./after.jpg)"
+  ></div>
+</div>
+
+
+<script src="../dist/comparison-slider.js"></script>
+<script>
+new ComparisonSlider( '.ComparisonSlider' );
+</script>
+
+</body>
+</html>

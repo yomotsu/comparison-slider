@@ -57,7 +57,7 @@ $style.innerHTML = `
 }
 
 @supports (filter: drop-shadow( 0 0 0 #000 )) {
-	.ComparisonSlider__Handle::before {
+	.ComparisonSlider__Handle::before,
 	.ComparisonSlider__Handle::after {
 		box-shadow: none;
 	}

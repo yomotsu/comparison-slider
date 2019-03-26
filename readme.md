@@ -9,6 +9,10 @@ Comparing two images. No dependencies.
 
 - [basic](https://yomotsu.github.io/comparison-slider/examples/basic.html)
 - [auto (easiest!)](https://yomotsu.github.io/comparison-slider/examples/auto.html)
+- [basic](https://yomotsu.github.io/comparison-slider/examples/basic.html)
+- [responsive](https://yomotsu.github.io/comparison-slider/examples/responsive.html)
+- [responsive-keep-aspect](https://yomotsu.github.io/comparison-slider/examples/responsive-keep-aspect.html)
+- [custom](https://yomotsu.github.io/comparison-slider/examples/custom.html)
 
 ## Usage
 
@@ -42,7 +46,7 @@ then...
 
 ```js
 import ComparisonSlider from 'comparison-slider';
-const ComparisonSlider = new ComparisonSlider();
+const comparisonSlider = new ComparisonSlider();
 ```
 
 ### in browser
@@ -50,6 +54,6 @@ const ComparisonSlider = new ComparisonSlider();
 ```html
 <script src="path/to/comparison-slider.min.js"></script>
 <script>
-const ComparisonSlider = new ComparisonSlider();
+const comparisonSlider = new ComparisonSlider();
 </script>
 ```
