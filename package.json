@@ -1,0 +1,30 @@
+{
+  "name": "comparison-slider",
+  "version": "0.0.0",
+  "author": "Yomotsu",
+  "license": "MIT",
+  "repository": "yomotsu/comparison-slider",
+  "jsnext:main": "dist/comparison-slider.module.js",
+  "module": "dist/comparison-slider.module.js",
+  "main": "dist/comparison-slider.js",
+  "types": "dist/comparison-slider.d.ts",
+  "devDependencies": {
+    "rollup": "^1.7.3",
+    "rollup-plugin-typescript2": "^0.20.1",
+    "rollup-watch": "^4.3.1",
+    "terser": "^3.17.0",
+    "typescript": "^3.3.4000"
+  },
+  "scripts": {
+    "dev": "rollup --config --watch",
+    "build": "rollup --config && terser 'dist/comparison-slider.js' -o 'dist/comparison-slider.min.js' --comments '/^!/'"
+  },
+  "keywords": [
+    "compare images",
+    "image comparer",
+    "image compare",
+    "image diff",
+    "image comparison",
+    "twentytwenty"
+  ]
+}
