@@ -5,7 +5,7 @@
  * Released under the MIT License.
  */
 var $style = document.createElement('style');
-$style.innerHTML = "\n.ComparisonSlider {\n\tposition: relative;\n\toverflow: hidden;\n}\n.ComparisonSlider__Before,\n.ComparisonSlider__After {\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\tdisplay: block;\n\twidth: 100%;\n\theight: 100%;\n\tbackground-position: 50% 50%;\n\tbackground-size: cover;\n}\n.ComparisonSlider__Handle {\n\tcursor: col-resize;\n\tposition: absolute;\n\tbox-sizing: border-box;\n\ttop: 50%;\n\twidth: 44px;\n\theight: 44px;\n\tborder: 3px solid #fff;\n\tborder-radius: 100px;\n\tbox-shadow: 0px 0px 12px rgba( 51, 51, 51, 0.5 );\n\tbackground: url(\"data:image/svg+xml,%3Csvg%20fill=%22%23fff%22%20preserveAspectRatio=%22none%22%20viewBox=%220%200%2046%2046%22%20xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath%20d=%22m39.808%2023-10%208v-16z%22/%3E%3Cpath%20d=%22m6.192%2023%2010-8v16z%22/%3E%3C/svg%3E\" ) 50% 50% / 100% 100%;\n}\n@supports (filter: drop-shadow( 0 0 0 #000 )) {\n\t.ComparisonSlider__Handle {\n\t\tbox-shadow: none;\n\t\tfilter: drop-shadow( 0 0 12px rgba( 51, 51, 51, 0.5 ) );\n\t}\n}\n.ComparisonSlider__Handle::before,\n.ComparisonSlider__Handle::after {\n\tcontent: \"\";\n\tposition: absolute;\n\tleft: 50%;\n\tdisplay: block;\n\twidth: 3px;\n\theight: 1024px;\n\tmargin-left: -1.5px;\n\tbackground-color: #fff;\n}\n.ComparisonSlider__Handle::before {\n\tbottom: 50%;\n\tmargin-bottom: 22px;\n\tbox-shadow: 0 3px 0 #fff, 0px 0px 12px rgba( 51, 51, 51, 0.5 );\n}\n\n.ComparisonSlider__Handle::after {\n\ttop: 50%;\n\tmargin-top: 22px;\n\tbox-shadow: 0 -3px 0 #fff, 0px 0px 12px rgba( 51, 51, 51, 0.5 );\n}\n\n@supports (filter: drop-shadow( 0 0 0 #000 )) {\n\t.ComparisonSlider__Handle::before {\n\t.ComparisonSlider__Handle::after {\n\t\tbox-shadow: none;\n\t}\n}\n";
+$style.innerHTML = "\n.ComparisonSlider {\n\tposition: relative;\n\toverflow: hidden;\n}\n.ComparisonSlider__Before,\n.ComparisonSlider__After {\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\tdisplay: block;\n\twidth: 100%;\n\theight: 100%;\n\tbackground-position: 50% 50%;\n\tbackground-size: cover;\n}\n.ComparisonSlider__Handle {\n\tcursor: col-resize;\n\tposition: absolute;\n\tbox-sizing: border-box;\n\ttop: 50%;\n\twidth: 44px;\n\theight: 44px;\n\tborder: 3px solid #fff;\n\tborder-radius: 100px;\n\tbox-shadow: 0px 0px 12px rgba( 51, 51, 51, 0.5 );\n\tbackground: url(\"data:image/svg+xml,%3Csvg%20fill=%22%23fff%22%20preserveAspectRatio=%22none%22%20viewBox=%220%200%2046%2046%22%20xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath%20d=%22m39.808%2023-10%208v-16z%22/%3E%3Cpath%20d=%22m6.192%2023%2010-8v16z%22/%3E%3C/svg%3E\" ) 50% 50% / 100% 100%;\n}\n@supports (filter: drop-shadow( 0 0 0 #000 )) {\n\t.ComparisonSlider__Handle {\n\t\tbox-shadow: none;\n\t\tfilter: drop-shadow( 0 0 12px rgba( 51, 51, 51, 0.5 ) );\n\t}\n}\n.ComparisonSlider__Handle::before,\n.ComparisonSlider__Handle::after {\n\tcontent: \"\";\n\tposition: absolute;\n\tleft: 50%;\n\tdisplay: block;\n\twidth: 3px;\n\theight: 1024px;\n\tmargin-left: -1.5px;\n\tbackground-color: #fff;\n}\n.ComparisonSlider__Handle::before {\n\tbottom: 50%;\n\tmargin-bottom: 22px;\n\tbox-shadow: 0 3px 0 #fff, 0px 0px 12px rgba( 51, 51, 51, 0.5 );\n}\n\n.ComparisonSlider__Handle::after {\n\ttop: 50%;\n\tmargin-top: 22px;\n\tbox-shadow: 0 -3px 0 #fff, 0px 0px 12px rgba( 51, 51, 51, 0.5 );\n}\n\n@supports (filter: drop-shadow( 0 0 0 #000 )) {\n\t.ComparisonSlider__Handle::before,\n\t.ComparisonSlider__Handle::after {\n\t\tbox-shadow: none;\n\t}\n}\n";
 document.head.insertBefore($style, document.head.firstChild);
 
 function clamp(value, min, max) {
@@ -25,14 +25,17 @@ function selectorToElement(selectorOrHTMLElement) {
     return document.createElement('div');
 }
 
-function throttle(callback, limit) {
-    var wait = false;
+function debounce(func, wait) {
+    if (wait === void 0) { wait = 200; }
+    var timeoutID;
     return function () {
-        if (!wait) {
-            callback.apply(null, arguments);
-            wait = true;
-            setTimeout(function () { return wait = false; }, limit);
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
         }
+        clearTimeout(timeoutID);
+        var context = this;
+        timeoutID = window.setTimeout(function () { return func.apply(context, args); }, wait);
     };
 }
 
@@ -62,7 +65,7 @@ var ComparisonSlider = (function () {
         this.$el.addEventListener('mousedown', onMouseDown);
         this.$el.addEventListener('touchstart', onTouchStart);
         this.$el.addEventListener('contextmenu', onContextMenu);
-        var onWindowResize = throttle(function () {
+        var onWindowResize = debounce(function () {
             _this.update();
             _this.draw();
         }, 200);
