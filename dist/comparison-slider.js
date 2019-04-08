@@ -54,6 +54,7 @@
 	        this._width = 0;
 	        this._height = 0;
 	        this._offset = 0.5;
+	        this._auto = false;
 	        var scope = this;
 	        this.$el = selectorToElement($el);
 	        this.$before = selectorToElement(options.$before || '.ComparisonSlider__Before');
@@ -65,9 +66,14 @@
 	        this.$el.appendChild(this.$before);
 	        this.$el.appendChild(this.$after);
 	        this.$el.appendChild(this.$handle);
+	        this._auto = options.auto || false;
 	        this.update();
 	        this.draw();
 	        var dragStartX = 0;
+	        if (this._auto) {
+	            this.$el.addEventListener('mousemove', dragging, { passive: false });
+	            this.$el.addEventListener('touchmove', dragging, { passive: false });
+	        }
 	        this.$el.addEventListener('mousedown', onMouseDown);
 	        this.$el.addEventListener('touchstart', onTouchStart);
 	        this.$el.addEventListener('contextmenu', onContextMenu);
@@ -117,6 +123,8 @@
 	            _this.$el.removeEventListener('mousedown', onMouseDown);
 	            _this.$el.removeEventListener('touchstart', onTouchStart);
 	            _this.$el.removeEventListener('contextmenu', onContextMenu);
+	            _this.$el.addEventListener('mousemove', dragging);
+	            _this.$el.addEventListener('touchmove', dragging);
 	            document.removeEventListener('mousemove', dragging);
 	            document.removeEventListener('touchmove', dragging);
 	            document.removeEventListener('mouseup', endDragging);
