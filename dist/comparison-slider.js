@@ -20,11 +20,11 @@
 	    return Math.max(min, Math.min(max, value));
 	}
 
-	function selectorToElement(selectorOrHTMLElement) {
+	function selectorToElement(selectorOrHTMLElement, $parent) {
 	    if (selectorOrHTMLElement instanceof HTMLElement) {
 	        return selectorOrHTMLElement;
 	    }
-	    var element = document.querySelector(selectorOrHTMLElement);
+	    var element = ($parent || document).querySelector(selectorOrHTMLElement);
 	    if (element instanceof HTMLElement) {
 	        return element;
 	    }
@@ -57,9 +57,9 @@
 	        this._auto = false;
 	        var scope = this;
 	        this.$el = selectorToElement($el);
-	        this.$before = selectorToElement(options.$before || '.ComparisonSlider__Before');
-	        this.$after = selectorToElement(options.$after || '.ComparisonSlider__After');
-	        this.$handle = selectorToElement(options.$handle || '.ComparisonSlider__Handle');
+	        this.$before = selectorToElement(options.$before || '.ComparisonSlider__Before', this.$el);
+	        this.$after = selectorToElement(options.$after || '.ComparisonSlider__After', this.$el);
+	        this.$handle = selectorToElement(options.$handle || '.ComparisonSlider__Handle', this.$el);
 	        this.$before.classList.add('ComparisonSlider__Before');
 	        this.$after.classList.add('ComparisonSlider__After');
 	        this.$handle.classList.add('ComparisonSlider__Handle');
