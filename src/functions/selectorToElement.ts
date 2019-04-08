@@ -1,4 +1,7 @@
-export function selectorToElement( selectorOrHTMLElement: HTMLElement | string ): HTMLElement {
+export function selectorToElement(
+	selectorOrHTMLElement: HTMLElement | string,
+	$parent?: HTMLElement,
+): HTMLElement {
 
 	if ( selectorOrHTMLElement instanceof HTMLElement ) {
 
@@ -6,7 +9,7 @@ export function selectorToElement( selectorOrHTMLElement: HTMLElement | string )
 
 	}
 
-	const element = document.querySelector( selectorOrHTMLElement );
+	const element = ( $parent || document ).querySelector( selectorOrHTMLElement );
 
 	if ( element instanceof HTMLElement ) {
 

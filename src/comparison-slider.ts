@@ -29,9 +29,9 @@ export default class ComparisonSlider {
 		const scope = this;
 
 		this.$el = selectorToElement( $el );
-		this.$before = selectorToElement( options.$before || '.ComparisonSlider__Before' );
-		this.$after = selectorToElement( options.$after || '.ComparisonSlider__After' );
-		this.$handle = selectorToElement( options.$handle || '.ComparisonSlider__Handle' );
+		this.$before = selectorToElement( options.$before || '.ComparisonSlider__Before', this.$el );
+		this.$after = selectorToElement( options.$after || '.ComparisonSlider__After', this.$el );
+		this.$handle = selectorToElement( options.$handle || '.ComparisonSlider__Handle', this.$el );
 
 		this.$before.classList.add( 'ComparisonSlider__Before' );
 		this.$after.classList.add( 'ComparisonSlider__After' );
