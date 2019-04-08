@@ -8,11 +8,11 @@ Comparing two images. No dependencies.
 ## Example
 
 - [basic](https://yomotsu.github.io/comparison-slider/examples/basic.html)
-- [auto (easiest!)](https://yomotsu.github.io/comparison-slider/examples/auto.html)
-- [basic](https://yomotsu.github.io/comparison-slider/examples/basic.html)
+- [auto attach (easiest!)](https://yomotsu.github.io/comparison-slider/examples/auto-attach.html)
 - [responsive](https://yomotsu.github.io/comparison-slider/examples/responsive.html)
 - [responsive-keep-aspect](https://yomotsu.github.io/comparison-slider/examples/responsive-keep-aspect.html)
 - [custom](https://yomotsu.github.io/comparison-slider/examples/custom.html)
+- [auto](https://yomotsu.github.io/comparison-slider/examples/auto.html)
 
 ## Usage
 

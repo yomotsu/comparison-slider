@@ -7,6 +7,7 @@ interface Options {
 	$before?: HTMLElement | string;
 	$after?: HTMLElement | string;
 	$handle?: HTMLElement | string;
+	auto?: boolean;
 }
 
 export default class ComparisonSlider {
@@ -16,11 +17,12 @@ export default class ComparisonSlider {
 	$after: HTMLElement;
 	$handle: HTMLElement;
 	destory: () => void;
-
+	
 	private _left: number = 0;
 	private _width: number = 0;
 	private _height: number = 0;
 	private _offset: number = 0.5;
+	private _auto: boolean = false;
 
 	constructor( $el: HTMLElement | string = '.ComparisonSlider', options: Options = {} ) {
 
@@ -39,12 +41,21 @@ export default class ComparisonSlider {
 		this.$el.appendChild( this.$after );
 		this.$el.appendChild( this.$handle );
 
+		this._auto = options.auto || false;
+
 		this.update();
 		this.draw();
 
 
 		// mouse events
 		let dragStartX = 0;
+
+		if ( this._auto ) {
+
+			this.$el.addEventListener( 'mousemove', dragging, { passive: false } );
+			this.$el.addEventListener( 'touchmove', dragging, { passive: false } );
+
+		}
 
 		this.$el.addEventListener( 'mousedown', onMouseDown );
 		this.$el.addEventListener( 'touchstart', onTouchStart );
@@ -57,7 +68,6 @@ export default class ComparisonSlider {
 
 		}, 200 );
 		window.addEventListener( 'resize', onWindowResize );
-		
 
 		function onMouseDown( event: MouseEvent ) {
 
@@ -125,6 +135,8 @@ export default class ComparisonSlider {
 			this.$el.removeEventListener( 'mousedown', onMouseDown );
 			this.$el.removeEventListener( 'touchstart', onTouchStart );
 			this.$el.removeEventListener( 'contextmenu', onContextMenu );
+			this.$el.addEventListener( 'mousemove', dragging );
+			this.$el.addEventListener( 'touchmove', dragging );
 
 			document.removeEventListener( 'mousemove', dragging );
 			document.removeEventListener( 'touchmove', dragging );
