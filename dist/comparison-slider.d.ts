@@ -4,6 +4,7 @@ interface Options {
     $after?: HTMLElement | string;
     $handle?: HTMLElement | string;
     auto?: boolean;
+    autoArea?: HTMLElement;
 }
 export default class ComparisonSlider {
     $el: HTMLElement;

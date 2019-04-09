@@ -65,8 +65,9 @@ var ComparisonSlider = (function () {
         this.draw();
         var dragStartX = 0;
         if (this._auto) {
-            this.$el.addEventListener('mousemove', dragging, { passive: false });
-            this.$el.addEventListener('touchmove', dragging, { passive: false });
+            var $autoArea = options.autoArea || this.$el;
+            $autoArea.addEventListener('mousemove', dragging, { passive: false });
+            $autoArea.addEventListener('touchmove', dragging, { passive: false });
         }
         this.$el.addEventListener('mousedown', onMouseDown);
         this.$el.addEventListener('touchstart', onTouchStart);
@@ -94,8 +95,8 @@ var ComparisonSlider = (function () {
             scope.offset = (_event.pageX - scope._left) / scope._width;
             scope._toggleClassNames(true);
             scope._toggleTransitionMode(true);
-            document.addEventListener('mousemove', dragging, { passive: false });
-            document.addEventListener('touchmove', dragging, { passive: false });
+            document.addEventListener('mousemove', dragging);
+            document.addEventListener('touchmove', dragging);
             document.addEventListener('mouseup', endDragging);
             document.addEventListener('touchend', endDragging);
         }
@@ -119,6 +120,10 @@ var ComparisonSlider = (function () {
             _this.$el.removeEventListener('contextmenu', onContextMenu);
             _this.$el.addEventListener('mousemove', dragging);
             _this.$el.addEventListener('touchmove', dragging);
+            if (!!options.autoArea) {
+                options.autoArea.addEventListener('mousemove', dragging, { passive: false });
+                options.autoArea.addEventListener('touchmove', dragging, { passive: false });
+            }
             document.removeEventListener('mousemove', dragging);
             document.removeEventListener('touchmove', dragging);
             document.removeEventListener('mouseup', endDragging);
@@ -148,7 +153,7 @@ var ComparisonSlider = (function () {
     };
     ComparisonSlider.prototype.draw = function () {
         var left = clamp(this._width * this.offset, 0, this._width);
-        this.$handle.style.transform = "translateX( " + left + "px ) translate( -50%, -50% )";
+        this.$handle.style.transform = "translateX( " + left + "px ) translateX( -50% ) translateY( -50% )";
         this.$after.style.clip = "rect(0px, " + this._width + "px, " + this._height + "px, " + left + "px)";
     };
     ComparisonSlider.prototype._toggleClassNames = function (enabled) {
