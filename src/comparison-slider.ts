@@ -8,6 +8,7 @@ interface Options {
 	$after?: HTMLElement | string;
 	$handle?: HTMLElement | string;
 	auto?: boolean;
+	autoArea?: HTMLElement;
 }
 
 export default class ComparisonSlider {
@@ -52,8 +53,9 @@ export default class ComparisonSlider {
 
 		if ( this._auto ) {
 
-			this.$el.addEventListener( 'mousemove', dragging, { passive: false } );
-			this.$el.addEventListener( 'touchmove', dragging, { passive: false } );
+			const $autoArea = options.autoArea || this.$el;
+			$autoArea.addEventListener( 'mousemove', dragging, { passive: false } );
+			$autoArea.addEventListener( 'touchmove', dragging, { passive: false } );
 
 		}
 
@@ -98,8 +100,8 @@ export default class ComparisonSlider {
 			scope._toggleClassNames( true );
 			scope._toggleTransitionMode( true );
 
-			document.addEventListener( 'mousemove', dragging, { passive: false } );
-			document.addEventListener( 'touchmove', dragging, { passive: false } );
+			document.addEventListener( 'mousemove', dragging );
+			document.addEventListener( 'touchmove', dragging );
 			document.addEventListener( 'mouseup', endDragging );
 			document.addEventListener( 'touchend', endDragging );
 
@@ -137,6 +139,11 @@ export default class ComparisonSlider {
 			this.$el.removeEventListener( 'contextmenu', onContextMenu );
 			this.$el.addEventListener( 'mousemove', dragging );
 			this.$el.addEventListener( 'touchmove', dragging );
+
+			if ( !! options.autoArea ) {
+				options.autoArea.addEventListener( 'mousemove', dragging, { passive: false } );
+				options.autoArea.addEventListener( 'touchmove', dragging, { passive: false } );
+			}
 
 			document.removeEventListener( 'mousemove', dragging );
 			document.removeEventListener( 'touchmove', dragging );
@@ -178,7 +185,7 @@ export default class ComparisonSlider {
 	draw() {
 
 		const left = clamp( this._width * this.offset, 0, this._width );
-		this.$handle.style.transform = `translateX( ${ left }px ) translate( -50%, -50% )`;
+		this.$handle.style.transform = `translateX( ${ left }px ) translateX( -50% ) translateY( -50% )`;
 		this.$after.style.clip = `rect(0px, ${ this._width }px, ${ this._height }px, ${ left }px)`;
 
 	}
