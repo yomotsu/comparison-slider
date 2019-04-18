@@ -54,13 +54,16 @@ export default class ComparisonSlider {
 		if ( this._auto ) {
 
 			const $autoArea = options.autoArea || this.$el;
-			$autoArea.addEventListener( 'mousemove', dragging, { passive: false } );
-			$autoArea.addEventListener( 'touchmove', dragging, { passive: false } );
+			$autoArea.addEventListener( 'mousemove', dragging );
+			$autoArea.addEventListener( 'touchmove', dragging );
+
+		} else {
+
+			this.$el.addEventListener( 'mousedown', onMouseDown );
+			this.$el.addEventListener( 'touchstart', onTouchStart );
 
 		}
-
-		this.$el.addEventListener( 'mousedown', onMouseDown );
-		this.$el.addEventListener( 'touchstart', onTouchStart );
+		
 		this.$el.addEventListener( 'contextmenu', onContextMenu );
 
 		const onWindowResize = debounce( () => {
@@ -141,8 +144,10 @@ export default class ComparisonSlider {
 			this.$el.addEventListener( 'touchmove', dragging );
 
 			if ( !! options.autoArea ) {
-				options.autoArea.addEventListener( 'mousemove', dragging, { passive: false } );
-				options.autoArea.addEventListener( 'touchmove', dragging, { passive: false } );
+
+				options.autoArea.addEventListener( 'mousemove', dragging );
+				options.autoArea.addEventListener( 'touchmove', dragging );
+
 			}
 
 			document.removeEventListener( 'mousemove', dragging );
