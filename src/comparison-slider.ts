@@ -54,6 +54,7 @@ export default class ComparisonSlider {
 		if ( this._auto ) {
 
 			const $autoArea = options.autoArea || this.$el;
+			this.$el.classList.add( '-auto' );
 			$autoArea.addEventListener( 'mousemove', dragging );
 			$autoArea.addEventListener( 'touchmove', dragging );
 
@@ -71,7 +72,7 @@ export default class ComparisonSlider {
 			this.update();
 			this.draw();
 
-		}, 200 );
+		}, 60 );
 		window.addEventListener( 'resize', onWindowResize );
 
 		function onMouseDown( event: MouseEvent ) {
@@ -240,4 +241,4 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		( $el: HTMLElement ) => new ComparisonSlider( $el ),
 	);
 
-} )
+} );

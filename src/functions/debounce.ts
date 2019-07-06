@@ -1,8 +1,8 @@
-export function debounce<F extends Function>( func: F, wait: number = 200 ):F {
+export function debounce<F extends Function>( func: F, wait: number = 200 ): F {
 
 	let timeoutID: number;
 
-	return <F><any>function( this: any, ...args: any[] ) {
+	return <F> <any> function( this: any, ...args: any[] ) {
 
 		clearTimeout(timeoutID);
 		const context = this;

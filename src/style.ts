@@ -4,6 +4,10 @@ $style.innerHTML = `
 	position: relative;
 	overflow: hidden;
 }
+.ComparisonSlider.-auto,
+.ComparisonSlider.-dragging {
+	cursor: col-resize;
+}
 .ComparisonSlider__Before,
 .ComparisonSlider__After {
 	position: absolute;
@@ -49,13 +53,11 @@ $style.innerHTML = `
 	margin-bottom: 22px;
 	box-shadow: 0 3px 0 #fff, 0px 0px 12px rgba( 51, 51, 51, 0.5 );
 }
-
 .ComparisonSlider__Handle::after {
 	top: 50%;
 	margin-top: 22px;
 	box-shadow: 0 -3px 0 #fff, 0px 0px 12px rgba( 51, 51, 51, 0.5 );
 }
-
 @supports (filter: drop-shadow( 0 0 0 #000 )) {
 	.ComparisonSlider__Handle::before,
 	.ComparisonSlider__Handle::after {
