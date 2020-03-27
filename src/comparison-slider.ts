@@ -9,6 +9,7 @@ interface Options {
 	$handle?: HTMLElement | string;
 	auto?: boolean;
 	autoArea?: HTMLElement;
+	handleOnlyControl?: boolean;
 }
 
 export default class ComparisonSlider {
@@ -78,7 +79,21 @@ export default class ComparisonSlider {
 		function onMouseDown( event: MouseEvent ) {
 
 			event.preventDefault();
-			startDragging( event );
+			const { target } = event;
+			const { handleOnlyControl, $handle } = options
+
+			if (handleOnlyControl) {
+				const handle = $handle || '.ComparisonSlider__Handle'
+
+				if (
+					target !== null
+					&& (<HTMLElement> target).matches(handle)
+				) {
+					startDragging( event );
+				}
+			} else {
+				startDragging( event );
+			}
 
 		}
 
