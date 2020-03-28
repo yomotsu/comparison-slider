@@ -5,12 +5,14 @@ interface Options {
     $handle?: HTMLElement | string;
     auto?: boolean;
     autoArea?: HTMLElement;
+    handleOnlyControl?: boolean;
 }
 export default class ComparisonSlider {
     $el: HTMLElement;
     $before: HTMLElement;
     $after: HTMLElement;
     $handle: HTMLElement;
+    handleOnlyControl: boolean;
     destory: () => void;
     private _left;
     private _width;

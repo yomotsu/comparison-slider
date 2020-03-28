@@ -25,6 +25,16 @@ function selectorToElement(selectorOrHTMLElement, $parent) {
     return document.createElement('div');
 }
 
+function matches(el, selector) {
+    if (!!Element.prototype.matches) {
+        return el.matches(selector);
+    }
+    if (!!Element.prototype.msMatchesSelector) {
+        return el.msMatchesSelector(selector);
+    }
+    return false;
+}
+
 function debounce(func, wait) {
     if (wait === void 0) { wait = 200; }
     var timeoutID;
@@ -60,6 +70,7 @@ var ComparisonSlider = (function () {
         this.$el.appendChild(this.$before);
         this.$el.appendChild(this.$after);
         this.$el.appendChild(this.$handle);
+        this.handleOnlyControl = options.handleOnlyControl || false;
         this._auto = options.auto || false;
         this.update();
         this.draw();
@@ -82,7 +93,14 @@ var ComparisonSlider = (function () {
         window.addEventListener('resize', onWindowResize);
         function onMouseDown(event) {
             event.preventDefault();
-            startDragging(event);
+            if (scope.handleOnlyControl) {
+                if (!matches(event.target, '.ComparisonSlider__Handle'))
+                    return;
+                startDragging(event);
+            }
+            else {
+                startDragging(event);
+            }
         }
         function onTouchStart(event) {
             event.preventDefault();
