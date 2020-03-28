@@ -1,6 +1,7 @@
 import './style';
 import { clamp } from './functions/math';
 import { selectorToElement } from './functions/selectorToElement';
+import { matches } from './functions/matches';
 import { debounce } from './functions/debounce';
 
 interface Options {
@@ -18,8 +19,9 @@ export default class ComparisonSlider {
 	$before: HTMLElement;
 	$after: HTMLElement;
 	$handle: HTMLElement;
+	handleOnlyControl: boolean;
 	destory: () => void;
-	
+
 	private _left: number = 0;
 	private _width: number = 0;
 	private _height: number = 0;
@@ -43,6 +45,7 @@ export default class ComparisonSlider {
 		this.$el.appendChild( this.$after );
 		this.$el.appendChild( this.$handle );
 
+		this.handleOnlyControl = options.handleOnlyControl || false;
 		this._auto = options.auto || false;
 
 		this.update();
@@ -79,20 +82,17 @@ export default class ComparisonSlider {
 		function onMouseDown( event: MouseEvent ) {
 
 			event.preventDefault();
-			const { target } = event;
-			const { handleOnlyControl, $handle } = options
 
-			if (handleOnlyControl) {
-				const handle = $handle || '.ComparisonSlider__Handle'
+			if ( scope.handleOnlyControl ) {
 
-				if (
-					target !== null
-					&& (<HTMLElement> target).matches(handle)
-				) {
-					startDragging( event );
-				}
-			} else {
+				if ( ! matches( event.target as HTMLElement, '.ComparisonSlider__Handle' ) ) return;
+
 				startDragging( event );
+
+			} else {
+
+				startDragging( event );
+
 			}
 
 		}
