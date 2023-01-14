@@ -13,14 +13,14 @@ export default class ComparisonSlider {
     $after: HTMLElement;
     $handle: HTMLElement;
     handleOnlyControl: boolean;
-    destory: () => void;
+    destroy: () => void;
     private _left;
     private _width;
-    private _height;
     private _offset;
     private _auto;
     constructor($el?: HTMLElement | string, options?: Options);
-    offset: number;
+    set offset(offset: number);
+    get offset(): number;
     update(): void;
     draw(): void;
     private _toggleClassNames;
