@@ -1,20 +1,22 @@
 {
   "compilerOptions": {
+    "baseUrl": "src",
+    "outDir": "./dist",
     "declaration": true,
     "declarationDir": "./dist",
-    "outDir": "./dist",
-    "baseUrl": "src",
-    "target": "es5",
+    "target": "es2017",
     "strict": true,
-    "removeComments": true,
+    "removeComments": false,
+    "experimentalDecorators": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "experimentalDecorators": true
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    "src/**/*"
-  ],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }

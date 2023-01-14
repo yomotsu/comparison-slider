@@ -20,11 +20,10 @@ export default class ComparisonSlider {
 	$after: HTMLElement;
 	$handle: HTMLElement;
 	handleOnlyControl: boolean;
-	destory: () => void;
+	destroy: () => void;
 
 	private _left: number = 0;
 	private _width: number = 0;
-	private _height: number = 0;
 	private _offset: number = 0.5;
 	private _auto: boolean = false;
 
@@ -68,7 +67,7 @@ export default class ComparisonSlider {
 			this.$el.addEventListener( 'touchstart', onTouchStart );
 
 		}
-		
+
 		this.$el.addEventListener( 'contextmenu', onContextMenu );
 
 		const onWindowResize = debounce( () => {
@@ -151,7 +150,7 @@ export default class ComparisonSlider {
 		}
 
 		//
-		this.destory = () => {
+		this.destroy = () => {
 
 			this.$el.removeEventListener( 'mousedown', onMouseDown );
 			this.$el.removeEventListener( 'touchstart', onTouchStart );
@@ -199,7 +198,6 @@ export default class ComparisonSlider {
 		const rect = this.$el.getBoundingClientRect();
 		this._left = rect.left;
 		this._width = rect.width;
-		this._height = rect.height;
 
 	}
 
@@ -207,7 +205,8 @@ export default class ComparisonSlider {
 
 		const left = clamp( this._width * this.offset, 0, this._width );
 		this.$handle.style.transform = `translateX( ${ left }px ) translateX( -50% ) translateY( -50% )`;
-		this.$after.style.clip = `rect(0px, ${ this._width }px, ${ this._height }px, ${ left }px)`;
+		this.$before.style.clipPath = `inset(0 ${ ( 1 - this.offset ) * 100 }% 0 0)`;
+		this.$after.style.clipPath = `inset(0 0 0 ${ this.offset * 100 }%)`;
 
 	}
 
@@ -256,4 +255,4 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		( $el: HTMLElement ) => new ComparisonSlider( $el ),
 	);
 
-} );
+}, { once: true } );
